@@ -1,5 +1,6 @@
 package med.voll.api.domain.usuario;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class Usuario implements UserDetails{
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

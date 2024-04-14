@@ -5,11 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Embeddable
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Endereco {
+public class Endereco implements Serializable {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 	private String logradouro;
 	private String bairro;

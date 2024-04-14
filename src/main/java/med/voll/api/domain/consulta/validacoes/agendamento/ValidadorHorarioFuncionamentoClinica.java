@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
-import med.voll.api.domain.ValidacaoException;
+import med.voll.api.infra.exception.ValidacaoException;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 
 @Component

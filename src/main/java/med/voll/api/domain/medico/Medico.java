@@ -15,13 +15,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.endereco.Endereco;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Table(name = "medicos")
 @Entity(name = "Medico")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Medico {
+public class Medico implements Serializable {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -55,6 +61,6 @@ public class Medico {
 	}
 
 	public void excluir() {
-		this.ativo = false;		
+		this.ativo = false;
 	}	
 }

@@ -21,7 +21,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import med.voll.api.domain.consulta.AgendaDeConsultas;
+import med.voll.api.service.consulta.ConsultaService;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 import med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
 import med.voll.api.domain.medico.Especialidade;
@@ -41,7 +41,7 @@ class ConsultaControllerTest {
 	private JacksonTester<DadosDetalhamentoConsulta> dadosDetalhamentoConsultaJson;
 	
 	@MockBean
-	private AgendaDeConsultas agendaDeConsultas;
+	private ConsultaService agendaDeConsultas;
 
 	@Test
 	@DisplayName("Deveria devolver codigo http 400 quando informacoes estao invalidas")

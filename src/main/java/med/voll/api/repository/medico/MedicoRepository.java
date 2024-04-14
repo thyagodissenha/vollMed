@@ -1,7 +1,9 @@
-package med.voll.api.domain.medico;
+package med.voll.api.repository.medico;
 
 import java.time.LocalDateTime;
 
+import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.medico.Medico;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +19,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long>{
 			FROM 
 				Medico M
 			WHERE
-				M.ativo = 1
+				M.ativo = true
 				AND M.especialidade = :especialidade
 				AND M.id NOT IN (SELECT 
 									C.medico.id
@@ -39,7 +41,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long>{
 				Medico M
 			WHERE
 				M.id = :idMedico
-				AND M.ativo = 1
+				AND M.ativo = true
 			 """)
 	Medico findByIdAndAtivo(Long idMedico);
 
@@ -50,7 +52,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long>{
 				Medico M
 			WHERE
 				M.id = :idMedico
-				AND M.ativo = 1
+				AND M.ativo = true
 			 """)
 	Boolean existsByIdAndAtivo(Long idMedico);
 }

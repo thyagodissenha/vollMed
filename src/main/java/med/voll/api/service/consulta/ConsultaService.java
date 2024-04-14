@@ -1,32 +1,38 @@
-package med.voll.api.domain.consulta;
+package med.voll.api.service.consulta;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import med.voll.api.domain.consulta.*;
+import med.voll.api.repository.consulta.ConsultaRepository;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
-import med.voll.api.domain.ValidacaoException;
+import med.voll.api.infra.exception.ValidacaoException;
 import med.voll.api.domain.consulta.validacoes.agendamento.ValidadorAgendamentoDeConsulta;
 import med.voll.api.domain.consulta.validacoes.cancelamento.ValidadorCancelamentoDeConsulta;
 import med.voll.api.domain.medico.Medico;
-import med.voll.api.domain.medico.MedicoRepository;
+import med.voll.api.repository.medico.MedicoRepository;
 import med.voll.api.domain.paciente.Paciente;
-import med.voll.api.domain.paciente.PacienteRepository;
+import med.voll.api.repository.paciente.PacienteRepository;
 
 @Service
-public class AgendaDeConsultas {
-	
-	@Autowired
-	private ConsultaRepository consultaRepository;
-	@Autowired
-	private MedicoRepository medicoRepository;
-	@Autowired
-	private PacienteRepository pacienteRepository;
-	@Autowired
-	private List<ValidadorAgendamentoDeConsulta> validadoresAgendamento;
-	@Autowired
-	private List<ValidadorCancelamentoDeConsulta> validadorCancelamento;
+public class ConsultaService {
+
+	private final ConsultaRepository consultaRepository;
+	private final MedicoRepository medicoRepository;
+	private final PacienteRepository pacienteRepository;
+	private final List<ValidadorAgendamentoDeConsulta> validadoresAgendamento;
+	private final List<ValidadorCancelamentoDeConsulta> validadorCancelamento;
+
+	public ConsultaService(ConsultaRepository consultaRepository, MedicoRepository medicoRepository,
+						   PacienteRepository pacienteRepository, List<ValidadorAgendamentoDeConsulta> validadoresAgendamento,
+						   List<ValidadorCancelamentoDeConsulta> validadorCancelamento){
+		this.consultaRepository = consultaRepository;
+		this.medicoRepository = medicoRepository;
+		this.pacienteRepository = pacienteRepository;
+		this.validadoresAgendamento = validadoresAgendamento;
+		this.validadorCancelamento = validadorCancelamento;
+	}
 	
 	public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados) {
 		
@@ -57,7 +63,7 @@ public class AgendaDeConsultas {
 
 	public void cancelar(@Valid DadosCancelamentoConsulta dados) {
 		if(!consultaRepository.existsById(dados.idConsulta()))
-			throw new ValidacaoException("Id  da consulta informado não existe");
+			throw new ValidacaoException("Id da consulta informado não existe");
 		
 		validadorCancelamento.forEach(v -> v.validar(dados));
 		
