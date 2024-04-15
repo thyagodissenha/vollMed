@@ -1,9 +1,13 @@
 package med.voll.api.service.consulta;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import med.voll.api.domain.consulta.*;
+import med.voll.api.domain.medico.DadosDetalhamentoMedico;
 import med.voll.api.repository.consulta.ConsultaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
@@ -45,7 +49,7 @@ public class ConsultaService {
 		
 		Medico medico = escolherMedico(dados);
 		if(medico == null)
-			throw new ValidacaoException("Não existe médico disponível nessa dara");
+			throw new ValidacaoException("Não existe médico disponível nessa data");
 		Paciente paciente = pacienteRepository.getReferenceById(dados.idPaciente());		
 		Consulta consulta = new Consulta(null, medico, paciente, dados.data(), null);
 		
@@ -69,5 +73,13 @@ public class ConsultaService {
 		
 		Consulta consulta = consultaRepository.getReferenceById(dados.idConsulta());
 		consulta.cancelar(dados.motivo());		
+	}
+
+	public Page<DadosListagemConsulta> listar(Pageable paginacao) {
+		return consultaRepository.findAllBy(paginacao).map(DadosListagemConsulta::new);
+	}
+
+	public DadosDetalhamentoConsulta detalhar(@Valid Long id) {
+		return new DadosDetalhamentoConsulta(consultaRepository.getReferenceById(id));
 	}
 }

@@ -16,14 +16,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.paciente.Paciente;
 
 @Table(name = "consultas")
 @Entity(name = "Consulta")
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Consulta implements Serializable {
